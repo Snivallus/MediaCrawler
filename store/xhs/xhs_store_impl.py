@@ -179,11 +179,11 @@ class XhsJsonStoreImplement(AbstractStore):
     file_count:int=calculate_number_of_files(json_store_path)
     WordCloud = words.AsyncWordCloudGenerator()
 
-    def make_save_file_name(self, store_type: str) -> (str,str):
+    def make_save_file_name(self, store_type: str) -> tuple[str, str]:
         """
         make save file name by store type
         Args:
-            store_type: Save type contains content and comments（contents | comments）
+            store_type: Save type contains content and comments (contents | comments)
 
         Returns:
 

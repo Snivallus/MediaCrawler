@@ -136,7 +136,8 @@ class DOUYINClient(AbstractApiClient):
             keyword: str,
             offset: int = 0,
             search_channel: SearchChannelType = SearchChannelType.GENERAL,
-            sort_type: SearchSortType = SearchSortType.GENERAL,
+            # sort_type: SearchSortType = SearchSortType.GENERAL,
+            sort_type: SearchSortType = SearchSortType.LATEST,
             publish_time: PublishTimeType = PublishTimeType.UNLIMITED,
             search_id: str = ""
     ):
