@@ -111,10 +111,10 @@ def plot_statistics(douyin_stats, weibo_stats, output_file):
 
     # 子图1：年度帖子数量
     plt.subplot(1, 2, 1)
-    plt.plot(douyin_df.index, douyin_df['post_count'], marker='o', label='抖音帖子数', linewidth=2)
+    plt.plot(douyin_df.index, douyin_df['post_count'], marker='o', label='抖音视频数', linewidth=2)
     plt.plot(weibo_df.index, weibo_df['weibo_post_count'], marker='s', label='微博帖子数', linewidth=2)
-    plt.title('年度帖子数量统计', fontsize=14, pad=20)
-    plt.ylabel('帖子数', fontsize=12)
+    plt.title('年度视频/帖子数量统计', fontsize=14, pad=20)
+    plt.ylabel('数量', fontsize=12)
     plt.xlabel('年份', fontsize=12)
     plt.legend(loc='upper left')
     plt.grid(True, linestyle='--', alpha=0.7)
@@ -248,13 +248,21 @@ def extract_ip_locations_and_plot_map(filename, output_pdf):
     print(f"中国地图已保存为 PDF 文件：{output_pdf}")
 
 def main():
-    douyin_input = './data/douyin/json/XuJiaHui.json'
-    weibo_input = './data/weibo/XuJiaHui.jsonl'
+    # douyin_input = './data/douyin/json/XuJiaHui.json'
+    # weibo_input = './data/weibo/XuJiaHui.jsonl'
 
-    douyin_csv_output = './data/XuJiaHui_yearly_stats_douyin.csv'
-    weibo_csv_output = './data/XuJiaHui_yearly_stats_weibo.csv'
-    pdf_output = './data/XuJiaHui_yearly_stats.pdf'
-    ip_chart_output = './data/XuJiaHui_ip_location_chart.pdf'
+    # douyin_csv_output = './data/XuJiaHui_yearly_stats_douyin.csv'
+    # weibo_csv_output = './data/XuJiaHui_yearly_stats_weibo.csv'
+    # pdf_output = './data/XuJiaHui_yearly_stats.pdf'
+    # ip_chart_output = './data/XuJiaHui_ip_location_chart.pdf'
+
+    douyin_input = './data/douyin/json/WuKang.json'
+    weibo_input = './data/weibo/WuKang.jsonl'
+
+    douyin_csv_output = './data/WuKang_yearly_stats_douyin.csv'
+    weibo_csv_output = './data/WuKang_yearly_stats_weibo.csv'
+    pdf_output = './data/WuKang_yearly_stats.pdf'
+    ip_chart_output = './data/WuKang_ip_location_chart.pdf'
 
     # 抖音数据处理
     douyin_data = load_data(douyin_input)
