@@ -90,8 +90,9 @@ def save_weibo_csv(stats, output_file):
         for year in sorted(stats.keys()):
             writer.writerow([year, stats[year]])
 
-def plot_statistics(douyin_stats, weibo_stats, output_file):
-    """绘制合并统计图表并保存为 PDF"""
+def plot_statistics(douyin_stats, weibo_stats, output_file, start_year=2018):
+    """绘制合并统计图表并保存为 PDF, 从 start_year 开始显示"""
+
     # 转为 DataFrame
     douyin_df = pd.DataFrame.from_dict(douyin_stats, orient='index')
     douyin_df = douyin_df.sort_index()
@@ -104,6 +105,11 @@ def plot_statistics(douyin_stats, weibo_stats, output_file):
     douyin_df = douyin_df.reindex(all_years, fill_value=0)
     weibo_df = weibo_df.reindex(all_years, fill_value=0)
 
+    # 仅保留 start_year 及之后的数据
+    douyin_df = douyin_df[douyin_df.index >= start_year]
+    weibo_df = weibo_df[weibo_df.index >= start_year]
+
+    # 设置中文字体
     plt.rcParams['font.sans-serif'] = ['SimHei']
     plt.rcParams['axes.unicode_minus'] = False
 
@@ -127,10 +133,10 @@ def plot_statistics(douyin_stats, weibo_stats, output_file):
         linewidth=2,
         ax=plt.gca()
     )
-    plt.title('年度互动数据统计 (抖音)', fontsize=14, pad=20)
+    plt.title('年度互动数据统计', fontsize=14, pad=20)
     plt.ylabel('数量', fontsize=12)
     plt.xlabel('年份', fontsize=12)
-    lines.legend(['总点赞数', '总收藏数', '总评论数', '总分享数'], loc='upper left', framealpha=0.5)
+    lines.legend(['总浏览数 (微博)', '总点赞数 (抖音)', '总收藏数 (抖音)', '总评论数 (抖音)', '总分享数 (抖音)'], loc='upper left', framealpha=0.5)
     plt.grid(True, linestyle='--', alpha=0.7)
 
     plt.tight_layout(pad=3.0)
@@ -248,21 +254,31 @@ def extract_ip_locations_and_plot_map(filename, output_pdf):
     print(f"中国地图已保存为 PDF 文件：{output_pdf}")
 
 def main():
-    # douyin_input = './data/douyin/json/XuJiaHui.json'
-    # weibo_input = './data/weibo/XuJiaHui.jsonl'
+    option = 3
+    if option == 1:
+        douyin_input = './data/douyin/json/XuJiaHui.json'
+        weibo_input = './data/weibo/XuJiaHui.jsonl'
 
-    # douyin_csv_output = './data/XuJiaHui_yearly_stats_douyin.csv'
-    # weibo_csv_output = './data/XuJiaHui_yearly_stats_weibo.csv'
-    # pdf_output = './data/XuJiaHui_yearly_stats.pdf'
-    # ip_chart_output = './data/XuJiaHui_ip_location_chart.pdf'
+        douyin_csv_output = './data/XuJiaHui_yearly_stats_douyin.csv'
+        weibo_csv_output = './data/XuJiaHui_yearly_stats_weibo.csv'
+        pdf_output = './data/XuJiaHui_yearly_stats.pdf'
+        ip_chart_output = './data/XuJiaHui_ip_location_chart.pdf'
 
-    douyin_input = './data/douyin/json/WuKang.json'
-    weibo_input = './data/weibo/WuKang.jsonl'
+        start_year = 2018
+        
+    elif option == 2:
+        douyin_input = './data/douyin/json/WuKang.json'
+        weibo_input = './data/weibo/WuKang.jsonl'
 
-    douyin_csv_output = './data/WuKang_yearly_stats_douyin.csv'
-    weibo_csv_output = './data/WuKang_yearly_stats_weibo.csv'
-    pdf_output = './data/WuKang_yearly_stats.pdf'
-    ip_chart_output = './data/WuKang_ip_location_chart.pdf'
+        douyin_csv_output = './data/WuKang_yearly_stats_douyin.csv'
+        weibo_csv_output = './data/WuKang_yearly_stats_weibo.csv'
+        pdf_output = './data/WuKang_yearly_stats.pdf'
+        ip_chart_output = './data/WuKang_ip_location_chart.pdf'
+
+        start_year = 2018
+        
+    else:
+        return "Invalid option selected." 
 
     # 抖音数据处理
     douyin_data = load_data(douyin_input)
@@ -274,7 +290,8 @@ def main():
     save_weibo_csv(weibo_stats, weibo_csv_output)
 
     # 合并绘图
-    plot_statistics(douyin_stats, weibo_stats, pdf_output)
+    
+    plot_statistics(douyin_stats, weibo_stats, pdf_output, start_year)
 
     print(f"抖音统计结果已保存到 {douyin_csv_output}")
     print(f"微博统计结果已保存到 {weibo_csv_output}")

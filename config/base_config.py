@@ -13,7 +13,8 @@
 PLATFORM = "dy"
 # KEYWORDS = "徐家汇源,徐家汇天主堂,圣依纳爵天主堂,上海气象博物馆,徐家汇观象台,徐家汇藏书楼,徐家汇书院," \
 #            "徐光启墓,光启公园,徐家汇圣母院,徐汇公学,启明女校,南洋公学"  # 关键词搜索配置, 以英文逗号分隔
-KEYWORDS = "武康大楼,武康路,上海武康路,武康大楼打卡,武康大楼外观,武康大楼历史,武康大楼建筑,武康大楼雪糕"
+# KEYWORDS = "武康大楼,武康路,上海武康路,武康大楼打卡,武康大楼外观,武康大楼历史,武康大楼建筑,武康大楼雪糕"
+KEYWORDS = "金华建筑公园,金华建筑艺术公园"
 LOGIN_TYPE = "cookie"  # qrcode or phone or cookie
 COOKIES = "ptoken=v25xJiysu1Jx0OK_IxfW4s2nZT22ZPgNs5pYgmPJwk4"
 # 具体值参见media_platform.xxx.field下的枚举值, 暂时只支持小红书
